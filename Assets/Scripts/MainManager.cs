@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainManager : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    public TextMeshProUGUI scoreBoard;
+
     // Start is called before the first frame update
     void Start()
     {
+        scoreBoard.text = string.Format("Best Score : {0} : {1}", PlayerRecord.Instance.finalName, PlayerRecord.Instance.finalScore);
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -72,5 +76,14 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        PlayerRecord.Instance.temporaryScore = m_Points;
+        if(PlayerRecord.Instance.temporaryScore> PlayerRecord.Instance.finalScore)
+        {
+            PlayerRecord.Instance.finalName = PlayerRecord.Instance.temporaryName;
+            PlayerRecord.Instance.finalScore = PlayerRecord.Instance.temporaryScore;
+            PlayerRecord.Instance.SaveRecord();
+        }
+
+        SceneManager.LoadScene(0);
     }
 }
