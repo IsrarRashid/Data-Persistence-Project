@@ -15,6 +15,7 @@ public class MenuUIHandler : MonoBehaviour
     public TextMeshProUGUI scoreBoard;
     private void Start()
     {
+        //PlayerRecord.Instance.ResetFile();
         Debug.Log("start" + PlayerRecord.Instance.finalScore.ToString());
         bestScore = PlayerRecord.Instance.finalScore;
         PlayerRecord.Instance.LoadRecord();

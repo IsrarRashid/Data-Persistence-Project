@@ -57,4 +57,13 @@ public class PlayerRecord : MonoBehaviour
             finalName = saveData.savedName;
         }
     }
+
+    public void ResetFile()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
 }
